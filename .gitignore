@@ -1,0 +1,22 @@
+# Node.js / Angular
+node_modules/
+dist/
+.angular/
+npm-debug.log*
+
+# Java / Maven
+target/
+*.class
+*.jar
+*.war
+
+# Environment & Secrets
+.env
+*.env
+
+# IDE / OS
+.idea/
+.vscode/
+*.swp
+*.DS_Store
+Thumbs.db

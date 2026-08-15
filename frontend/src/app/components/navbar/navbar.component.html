@@ -1,0 +1,33 @@
+<nav class="navbar">
+  <div class="nav-container">
+    <a routerLink="/" class="nav-logo">
+      <div class="abc-badge">abc</div>
+      <span class="logo-text">GUESS <span class="highlight">THE WORD</span></span>
+    </a>
+
+    <div class="nav-links" *ngIf="currentUser">
+      <a routerLink="/game" routerLinkActive="active" class="nav-item">
+        <span>🎮 Play Game</span>
+      </a>
+      <a routerLink="/admin-reports" routerLinkActive="active" class="nav-item admin-nav-btn" *ngIf="currentUser.role === 'ADMIN'">
+        <span>📊 Admin Reports</span>
+      </a>
+    </div>
+
+    <div class="nav-user" *ngIf="currentUser">
+      <div class="user-pill">
+        <span class="user-avatar" [ngClass]="currentUser.role === 'ADMIN' ? 'purple-avatar' : 'emerald-avatar'">
+          {{ currentUser.username.charAt(0).toUpperCase() }}
+        </span>
+        <span class="user-name">{{ currentUser.username }}</span>
+        <span class="role-tag" [ngClass]="currentUser.role.toLowerCase()">{{ currentUser.role }}</span>
+      </div>
+      <button (click)="logout()" class="btn-logout-sm">Logout</button>
+    </div>
+
+    <div class="nav-auth" *ngIf="!currentUser">
+      <a routerLink="/login" class="btn btn-secondary btn-sm">Login</a>
+      <a routerLink="/register" class="btn btn-primary btn-sm">Register</a>
+    </div>
+  </div>
+</nav>

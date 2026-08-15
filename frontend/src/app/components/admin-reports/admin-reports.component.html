@@ -1,0 +1,517 @@
+<div class="admin-app-container" (click)="closeActionMenus()">
+  <!-- Main Body Layout: Left Sidebar + Main Content -->
+  <div class="admin-main-layout">
+    <!-- Left Sidebar Navigation -->
+    <aside class="sidebar-nav">
+      <div class="sidebar-header-box">
+        <div class="w-icon-badge">W</div>
+        <span class="sidebar-header-title">Admin Dashboard</span>
+      </div>
+
+      <nav class="sidebar-menu">
+        <button
+          class="sidebar-item"
+          [class.active]="activeTab === 'OVERVIEW'"
+          (click)="activeTab = 'OVERVIEW'"
+        >
+          <span class="menu-icon">📊</span>
+          <span>Overview</span>
+        </button>
+
+        <button
+          class="sidebar-item"
+          [class.active]="activeTab === 'DAILY'"
+          (click)="activeTab = 'DAILY'"
+        >
+          <span class="menu-icon">📅</span>
+          <span>Daily Report</span>
+        </button>
+
+        <button
+          class="sidebar-item"
+          [class.active]="activeTab === 'USER_REPORT'"
+          (click)="activeTab = 'USER_REPORT'"
+        >
+          <span class="menu-icon">👤</span>
+          <span>User Report</span>
+        </button>
+
+        <button
+          class="sidebar-item"
+          [class.active]="activeTab === 'USERS'"
+          (click)="activeTab = 'USERS'"
+        >
+          <span class="menu-icon">👥</span>
+          <span>Users</span>
+        </button>
+      </nav>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content-viewport">
+
+      <!-- ================= TAB 1: PLATFORM OVERVIEW ================= -->
+      <section class="tab-view-section" *ngIf="activeTab === 'OVERVIEW'">
+        <div class="section-title-group">
+          <h2 class="section-heading text-emerald">Platform Overview</h2>
+          <p class="section-subtext">Real-time statistics and insights for Guess The Word.</p>
+        </div>
+
+        <!-- All-Time Statistics Section -->
+        <div class="stats-group-box mb-6">
+          <h3 class="group-subheading">All-Time Statistics</h3>
+
+          <div class="grid-4-cols">
+            <!-- Total Players -->
+            <div class="stat-card-box">
+              <div class="stat-text-content">
+                <span class="stat-label">Total Players</span>
+                <span class="stat-value-large">{{ overview.totalPlayers }}</span>
+              </div>
+              <div class="stat-icon-wrapper icon-bg-emerald">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="9" cy="7" r="4"></circle>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+              </div>
+            </div>
+
+            <!-- Total Games -->
+            <div class="stat-card-box">
+              <div class="stat-text-content">
+                <span class="stat-label">Total Games</span>
+                <span class="stat-value-large">{{ overview.totalGames }}</span>
+              </div>
+              <div class="stat-icon-wrapper icon-bg-purple">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="2" y="6" width="20" height="12" rx="4"></rect>
+                  <path d="M6 12h4M8 10v4M15 11h.01M18 13h.01"></path>
+                </svg>
+              </div>
+            </div>
+
+            <!-- Total Wins -->
+            <div class="stat-card-box">
+              <div class="stat-text-content">
+                <span class="stat-label">Total Wins</span>
+                <span class="stat-value-large">{{ overview.totalWins }}</span>
+              </div>
+              <div class="stat-icon-wrapper icon-bg-yellow">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4z"></path>
+                  <path d="M5 4h2v3a3 3 0 0 1-3-3v0a0 0 0 1 0 0h1zM17 4h2a0 0 0 1 0 0v0a3 3 0 0 1-3 3V4z"></path>
+                </svg>
+              </div>
+            </div>
+
+            <!-- Global Win Rate -->
+            <div class="stat-card-box">
+              <div class="stat-text-content">
+                <span class="stat-label">Global Win Rate</span>
+                <span class="stat-value-large">{{ overview.globalWinRate }}</span>
+              </div>
+              <div class="stat-icon-wrapper icon-bg-blue">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                  <polyline points="17 6 23 6 23 12"></polyline>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Today's Activity Section -->
+        <div class="stats-group-box">
+          <h3 class="group-subheading">Today's Activity</h3>
+
+          <div class="grid-3-cols">
+            <!-- Active Players Today -->
+            <div class="stat-card-box">
+              <div class="stat-text-content">
+                <span class="stat-label">Active Players Today</span>
+                <span class="stat-value-large">{{ overview.activePlayersToday }}</span>
+              </div>
+              <div class="stat-icon-wrapper icon-bg-dark-lightning">
+                ⚡
+              </div>
+            </div>
+
+            <!-- Games Played Today -->
+            <div class="stat-card-box">
+              <div class="stat-text-content">
+                <span class="stat-label">Games Played Today</span>
+                <span class="stat-value-large">{{ overview.gamesPlayedToday }}</span>
+              </div>
+              <div class="stat-icon-wrapper icon-bg-dark-lightning">
+                ⚡
+              </div>
+            </div>
+
+            <!-- Wins Today -->
+            <div class="stat-card-box">
+              <div class="stat-text-content">
+                <span class="stat-label">Wins Today</span>
+                <span class="stat-value-large">{{ overview.winsToday }}</span>
+              </div>
+              <div class="stat-icon-wrapper icon-bg-cyan-medal">
+                🏅
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ================= TAB 2: DAILY REPORTS ================= -->
+      <section class="tab-view-section" *ngIf="activeTab === 'DAILY'">
+        <div class="section-title-group">
+          <h2 class="section-heading text-emerald">Daily Reports</h2>
+          <p class="section-subtext">Analyze player activity and performance over time.</p>
+        </div>
+
+        <!-- Mode Selector & Date Picker Bar -->
+        <div class="filter-card-container">
+          <div class="segmented-control">
+            <button
+              class="segment-btn"
+              [class.active]="dailyReportMode === 'SINGLE_DAY'"
+              (click)="dailyReportMode = 'SINGLE_DAY'"
+            >
+              Single Day
+            </button>
+            <button
+              class="segment-btn"
+              [class.active]="dailyReportMode === 'DATE_RANGE'"
+              (click)="dailyReportMode = 'DATE_RANGE'; fetchDateRangeReport()"
+            >
+              Date Range
+            </button>
+          </div>
+
+          <!-- Single Day Filter Controls -->
+          <div class="filter-inputs-row" *ngIf="dailyReportMode === 'SINGLE_DAY'">
+            <div class="date-input-wrapper">
+              <input
+                type="date"
+                class="dark-input"
+                [(ngModel)]="selectedDate"
+              />
+            </div>
+
+            <button class="btn-search" (click)="fetchDailyReport()">
+              <span>🔍 View</span>
+            </button>
+          </div>
+
+          <!-- Date Range Filter Controls -->
+          <div class="filter-inputs-row" *ngIf="dailyReportMode === 'DATE_RANGE'">
+            <div class="date-range-group">
+              <input type="date" class="dark-input" [(ngModel)]="rangeStartDate" />
+              <span class="range-to-text">to</span>
+              <input type="date" class="dark-input" [(ngModel)]="rangeEndDate" />
+            </div>
+
+            <button class="btn-search" (click)="fetchDateRangeReport()">
+              <span>🔍 Search</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Single Day View Output -->
+        <div class="daily-report-results" *ngIf="dailyReportMode === 'SINGLE_DAY'">
+          <div class="results-header-bar mb-4">
+            <h3 class="results-heading">
+              Report for {{ dailyReport.date }}
+              <span class="status-badge-active ml-2">Active</span>
+            </h3>
+          </div>
+
+          <div class="grid-4-cols">
+            <!-- Active Users -->
+            <div class="stat-card-box">
+              <div class="stat-text-content">
+                <span class="stat-label">Active Users</span>
+                <span class="stat-value-large">{{ dailyReport.numberOfUsers }}</span>
+              </div>
+              <div class="stat-icon-wrapper icon-bg-dark-users">👥</div>
+            </div>
+
+            <!-- Total Games -->
+            <div class="stat-card-box">
+              <div class="stat-text-content">
+                <span class="stat-label">Total Games</span>
+                <span class="stat-value-large">{{ dailyTotalGames }}</span>
+              </div>
+              <div class="stat-icon-wrapper icon-bg-purple">🎮</div>
+            </div>
+
+            <!-- Correct Guesses -->
+            <div class="stat-card-box">
+              <div class="stat-text-content">
+                <span class="stat-label">Correct Guesses</span>
+                <span class="stat-value-large">{{ dailyReport.numberOfCorrectGuesses }}</span>
+              </div>
+              <div class="stat-icon-wrapper icon-bg-emerald-check">✓</div>
+            </div>
+
+            <!-- Win Rate -->
+            <div class="stat-card-box">
+              <div class="stat-text-content">
+                <span class="stat-label">Win Rate</span>
+                <span class="stat-value-large">{{ dailyWinRate }}</span>
+              </div>
+              <div class="stat-icon-wrapper icon-bg-emerald-chart">📈</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Date Range View Table (Image 3) -->
+        <div class="date-range-table-container" *ngIf="dailyReportMode === 'DATE_RANGE'">
+          <div class="table-card">
+            <table class="custom-dark-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Users</th>
+                  <th>Games</th>
+                  <th>Correct</th>
+                  <th>Win Rate</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of dateRangeRows">
+                  <td><strong>{{ row.date }}</strong></td>
+                  <td>{{ row.usersCount }}</td>
+                  <td>{{ row.gamesCount }}</td>
+                  <td><strong>{{ row.correctCount }}</strong></td>
+                  <td>{{ row.winRate }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ================= TAB 3: USERS DIRECTORY (Image 4 & 5) ================= -->
+      <section class="tab-view-section" *ngIf="activeTab === 'USERS'">
+        <!-- Search & Filter Bar -->
+        <div class="users-filter-bar">
+          <div class="search-input-box">
+            <span class="search-icon">🔍</span>
+            <input
+              type="text"
+              class="dark-search-field"
+              placeholder="Search users..."
+              [(ngModel)]="userSearchQuery"
+              (input)="applyUsersFilter()"
+            />
+          </div>
+
+          <div class="role-select-box">
+            <select
+              class="dark-select"
+              [(ngModel)]="roleFilter"
+              (change)="applyUsersFilter()"
+            >
+              <option value="all">all</option>
+              <option value="admin">admin</option>
+              <option value="player">player</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Users Directory Table -->
+        <div class="table-card">
+          <table class="custom-dark-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Username</th>
+                <th>Role</th>
+                <th>Games</th>
+                <th>Wins</th>
+                <th>Win %</th>
+                <th>Joined ▼</th>
+                <th class="text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let u of filteredUsers">
+                <!-- Name with Avatar -->
+                <td>
+                  <div class="user-cell-name">
+                    <div class="avatar-circle" [ngClass]="u.role === 'admin' ? 'purple-avatar' : 'emerald-avatar'">
+                      {{ u.name.charAt(0).toUpperCase() }}
+                    </div>
+                    <span class="user-full-name">{{ u.name }}</span>
+                  </div>
+                </td>
+
+                <!-- Username -->
+                <td class="text-muted-tag">{{ u.username }}</td>
+
+                <!-- Role Pill -->
+                <td>
+                  <span class="role-pill" [ngClass]="u.role === 'admin' ? 'admin-pill' : 'player-pill'">
+                    {{ u.role }}
+                  </span>
+                </td>
+
+                <!-- Games -->
+                <td>{{ u.gamesCount }}</td>
+
+                <!-- Wins -->
+                <td>{{ u.winsCount }}</td>
+
+                <!-- Win % -->
+                <td>{{ u.winRate }}</td>
+
+                <!-- Joined Date -->
+                <td>{{ u.joinedDate }}</td>
+
+                <!-- Actions Menu Button -->
+                <td class="text-right relative-action-cell">
+                  <button
+                    class="btn-dots-action"
+                    (click)="toggleActionMenu(u.id, $event)"
+                  >
+                    •••
+                  </button>
+
+                  <!-- Popover Dropdown Action Menu (Image 5) -->
+                  <div
+                    class="action-popover-menu"
+                    *ngIf="activeActionMenuId === u.id"
+                    (click)="$event.stopPropagation()"
+                  >
+                    <button class="popover-item" (click)="openReportForUser(u)">
+                      <span class="item-icon">📊</span>
+                      <span>View Report (30-Day Heatmap)</span>
+                    </button>
+
+                    <button class="popover-item" (click)="openEditUserModal(u)">
+                      <span class="item-icon">✏️</span>
+                      <span>Edit User</span>
+                    </button>
+
+                    <button class="popover-item item-danger" (click)="deleteUser(u)">
+                      <span class="item-icon">🗑️</span>
+                      <span>Delete User</span>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+
+      <!-- ================= TAB 4: USER REPORT & HEATMAP ================= -->
+      <section class="tab-view-section" *ngIf="activeTab === 'USER_REPORT'">
+        <div class="section-title-group mb-4">
+          <h2 class="section-heading text-emerald">Player Progress & Heatmap</h2>
+          <p class="section-subtext">View detailed gameplay consistency for {{ selectedPlayerName }}.</p>
+        </div>
+
+        <div class="player-select-card mb-6">
+          <label class="label-text mr-3">Select Player:</label>
+          <select
+            class="dark-select"
+            [(ngModel)]="selectedUserId"
+            (change)="fetchUserReportData()"
+          >
+            <option *ngFor="let p of players" [value]="p.id">
+              👤 {{ p.username }}
+            </option>
+          </select>
+        </div>
+
+        <!-- 30-Day Consistency Heatmap Card -->
+        <div class="admin-heatmap-card mb-6">
+          <div class="admin-card-header">
+            <h4>🔥 {{ selectedPlayerName }}'s Consistency Activity (Past 30 Days)</h4>
+            <span class="streak-badge">🔥 {{ playerActiveStreak }} Day Streak</span>
+          </div>
+          <div class="admin-matrix-grid">
+            <div
+              *ngFor="let pt of userConsistencyPoints"
+              class="admin-day-square"
+              [ngClass]="'level-' + pt.activityLevel"
+              [title]="pt.date + ': ' + pt.gamesPlayed + ' games played (' + pt.gamesWon + ' wins)'"
+            ></div>
+          </div>
+          <div class="matrix-legend mt-2">
+            <span>Less Activity</span>
+            <span class="square-sample level-0"></span>
+            <span class="square-sample level-1"></span>
+            <span class="square-sample level-2"></span>
+            <span class="square-sample level-3"></span>
+            <span>More Activity (Max 3/day)</span>
+          </div>
+        </div>
+
+        <!-- User Progress History Table -->
+        <div class="table-card">
+          <table class="custom-dark-table" *ngIf="userReportList.length > 0; else noRecords">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Player Username</th>
+                <th>Words Tried</th>
+                <th>Correct Guesses</th>
+                <th>Success Rate</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of userReportList">
+                <td><strong>{{ row.date }}</strong></td>
+                <td>{{ row.username }}</td>
+                <td>{{ row.numberOfWordsTried }} Words</td>
+                <td><span class="badge-success-pill">{{ row.numberOfCorrectGuesses }} Wins</span></td>
+                <td>
+                  {{ row.numberOfWordsTried > 0 ? ((row.numberOfCorrectGuesses / row.numberOfWordsTried) * 100 | number:'1.0-0') : 0 }}%
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <ng-template #noRecords>
+            <div class="empty-state-box">
+              <p>No gameplay records found for {{ selectedPlayerName }}.</p>
+            </div>
+          </ng-template>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Edit User Modal -->
+  <div class="modal-overlay" *ngIf="showEditModal" (click)="showEditModal = false">
+    <div class="modal-card-box" (click)="$event.stopPropagation()">
+      <h3 class="modal-heading">Edit User Account</h3>
+
+      <div class="form-group mb-3">
+        <label class="form-label">Username:</label>
+        <input type="text" class="dark-input w-full" [(ngModel)]="editingUser.name" />
+      </div>
+
+      <div class="form-group mb-4">
+        <label class="form-label">Role:</label>
+        <select class="dark-select w-full" [(ngModel)]="editingUser.role">
+          <option value="player">player</option>
+          <option value="admin">admin</option>
+        </select>
+      </div>
+
+      <div class="modal-actions-row">
+        <button class="btn-cancel" (click)="showEditModal = false">Cancel</button>
+        <button class="btn-save" (click)="saveUserEdit()">Save Changes</button>
+      </div>
+    </div>
+  </div>
+</div>

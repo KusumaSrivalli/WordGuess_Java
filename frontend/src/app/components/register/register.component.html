@@ -1,0 +1,84 @@
+<div class="auth-wrapper">
+  <div class="glass-card auth-card">
+    <div class="auth-header">
+      <h2>Create an Account ✨</h2>
+      <p class="subtitle">Join Guess The Word to play or manage reports</p>
+    </div>
+
+    <div class="alert alert-error" *ngIf="errorMessage">
+      <span>⚠️ {{ errorMessage }}</span>
+    </div>
+
+    <div class="alert alert-success" *ngIf="successMessage">
+      <span>✅ {{ successMessage }}</span>
+    </div>
+
+    <form (ngSubmit)="onSubmit()">
+      <!-- Username Field -->
+      <div class="form-group">
+        <label class="form-label">Username</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="username"
+          name="username"
+          placeholder="e.g. PlayerOne"
+          required
+        />
+        <ul class="validation-hints">
+          <li [class.valid]="usernameMin5">
+            <span>{{ usernameMin5 ? '✓' : '•' }} At least 5 letters long</span>
+          </li>
+          <li [class.valid]="usernameHasUpper && usernameHasLower">
+            <span>{{ (usernameHasUpper && usernameHasLower) ? '✓' : '•' }} Contains both uppercase & lowercase letters</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Password Field -->
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input
+          type="password"
+          class="form-control"
+          [(ngModel)]="password"
+          name="password"
+          placeholder="e.g. Player1*"
+          required
+        />
+        <ul class="validation-hints">
+          <li [class.valid]="passwordMin5">
+            <span>{{ passwordMin5 ? '✓' : '•' }} At least 5 characters long</span>
+          </li>
+          <li [class.valid]="passwordHasAlpha">
+            <span>{{ passwordHasAlpha ? '✓' : '•' }} Contains alpha character (a-z, A-Z)</span>
+          </li>
+          <li [class.valid]="passwordHasNumeric">
+            <span>{{ passwordHasNumeric ? '✓' : '•' }} Contains numeric character (0-9)</span>
+          </li>
+          <li [class.valid]="passwordHasSpecial">
+            <span>{{ passwordHasSpecial ? '✓' : '•' }} Contains special char ($, %, *, &)</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Role Selection -->
+      <div class="form-group">
+        <label class="form-label">Account Role</label>
+        <select class="form-control" [(ngModel)]="role" name="role">
+          <option value="PLAYER">Player (Play Word Guessing Game)</option>
+          <option value="ADMIN">Admin (View Reports & Configuration)</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-primary w-full" [disabled]="!isFormValid || isLoading">
+        <span *ngIf="!isLoading">Register Account</span>
+        <span *ngIf="isLoading">Creating Account...</span>
+      </button>
+    </form>
+
+    <div class="auth-footer">
+      <p>Already registered? <a routerLink="/login">Log in here</a></p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,163 @@
+.navbar {
+  background: #0f1c34;
+  border-bottom: 1px solid #1a2b48;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  padding: 0.75rem 2rem;
+}
+
+.nav-container {
+  max-width: 1300px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+}
+
+.abc-badge {
+  background-color: #0284c7;
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 13px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  letter-spacing: 0.5px;
+}
+
+.logo-text {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+}
+
+.highlight {
+  color: #38bdf8;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.nav-item {
+  color: #cbd5e1;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  background: #1e2d4a;
+  border: 1px solid #2d4268;
+  transition: all 0.2s ease;
+}
+
+.nav-item:hover, .nav-item.active {
+  color: #fff;
+  background: #283c61;
+  border-color: #3b5788;
+}
+
+.admin-nav-btn {
+  background: rgba(245, 158, 11, 0.2);
+  border-color: rgba(245, 158, 11, 0.4);
+  color: #fbbf24;
+}
+
+.admin-nav-btn.active {
+  background: rgba(245, 158, 11, 0.3);
+  border-color: #fbbf24;
+  color: #ffffff;
+}
+
+.nav-user {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background-color: #16243d;
+  padding: 4px 14px 4px 6px;
+  border-radius: 24px;
+  border: 1px solid #22375b;
+}
+
+.user-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.purple-avatar {
+  background-color: #7c3aed;
+}
+
+.emerald-avatar {
+  background-color: #059669;
+}
+
+.user-name {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #f1f5f9;
+}
+
+.role-tag {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 10px;
+  text-transform: uppercase;
+}
+
+.role-tag.admin {
+  background-color: rgba(124, 58, 237, 0.3);
+  color: #c4b5fd;
+  border: 1px solid rgba(139, 92, 246, 0.4);
+}
+
+.role-tag.player {
+  background-color: rgba(51, 65, 85, 0.6);
+  color: #cbd5e1;
+  border: 1px solid rgba(100, 116, 139, 0.4);
+}
+
+.btn-logout-sm {
+  background-color: #1e293b;
+  color: #cbd5e1;
+  border: 1px solid #334155;
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-logout-sm:hover {
+  background-color: #334155;
+  color: #ffffff;
+}
+
+.btn-sm {
+  padding: 0.4rem 0.9rem;
+  font-size: 0.875rem;
+}

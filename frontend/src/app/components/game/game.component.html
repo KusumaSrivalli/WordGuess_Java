@@ -1,0 +1,244 @@
+<div class="game-wrapper">
+
+  <!-- ==================== VIEW 1: USER DASHBOARD ==================== -->
+  <div class="dashboard-container" *ngIf="viewMode === 'DASHBOARD'">
+    <!-- Top Welcome Header Bar -->
+    <div class="dashboard-header">
+      <div class="user-greeting">
+        <h2>Welcome back, {{ currentUsername }}!</h2>
+        <span class="username-tag">&#64;{{ currentUsername }}</span>
+      </div>
+
+      <div class="header-action-group">
+        <button
+          class="btn-start-game"
+          (click)="onStartOrResumeClick()"
+          [disabled]="isStartDisabled"
+        >
+          <span class="btn-icon">🎮</span>
+          <span>{{ gameStatus === 'IN_PROGRESS' ? 'Resume Game' : 'Start New Game' }}</span>
+        </button>
+
+        <div class="games-left-pill">
+          <span class="pill-dots">• • •</span>
+          <span class="pill-text">{{ remainingGamesToday }} of 3 games left today</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Alert error if any -->
+    <div class="alert alert-error mb-4" *ngIf="errorMessage">
+      <span>⚠️ {{ errorMessage }}</span>
+    </div>
+
+    <!-- 4 KPI Stat Cards -->
+    <div class="stats-kpi-grid">
+      <!-- Total Games -->
+      <div class="kpi-box">
+        <div class="kpi-info">
+          <span class="kpi-number">{{ totalGamesPlayedMonth }}</span>
+          <span class="kpi-title">Total Games</span>
+        </div>
+        <div class="kpi-bg-icon">
+          <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="2" y="6" width="20" height="12" rx="4"></rect>
+            <path d="M6 12h4M8 10v4M15 11h.01M18 13h.01"></path>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Total Wins -->
+      <div class="kpi-box">
+        <div class="kpi-info">
+          <span class="kpi-number">{{ totalWinsMonth }}</span>
+          <span class="kpi-title">Total Wins</span>
+        </div>
+        <div class="kpi-bg-icon">
+          <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4z"></path>
+            <path d="M5 4h2v3a3 3 0 0 1-3-3v0a0 0 0 1 0 0h1zM17 4h2a0 0 0 1 0 0v0a3 3 0 0 1-3 3V4z"></path>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Win Rate -->
+      <div class="kpi-box">
+        <div class="kpi-info">
+          <span class="kpi-number">{{ winRateMonth }}%</span>
+          <span class="kpi-title">Win Rate</span>
+        </div>
+        <div class="kpi-bg-icon">
+          <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+            <polyline points="17 6 23 6 23 12"></polyline>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Current Streak -->
+      <div class="kpi-box">
+        <div class="kpi-info">
+          <span class="kpi-number">{{ activeStreak }}</span>
+          <span class="kpi-title">Current Streak</span>
+        </div>
+        <div class="kpi-bg-icon fire-icon">
+          <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M8.5 14.5A2.5 2.5 0 0 0 11 17c1.38 0 2.5-1.12 2.5-2.5 0-1.67-1.38-2.5-2.5-4.5-1.12 2-2.5 2.83-2.5 4.5z"></path>
+            <path d="M12 2c1.67 3.33 5 4.17 5 9a5 5 0 0 1-10 0c0-4.83 3.33-5.67 5-9z"></path>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- LEETCODE & GITHUB STYLE GAMEPLAY CONSISTENCY HEATMAP -->
+    <div class="consistency-heatmap-card">
+      <div class="heatmap-top-row">
+        <div class="heatmap-title-box">
+          <div class="title-with-fire">
+            <span class="fire-emoji">🔥</span>
+            <h3>{{ currentUsername }}'s Gameplay Consistency Heatmap</h3>
+          </div>
+          <p class="heatmap-subtitle">Track your daily play activity, consistency level & streaks</p>
+        </div>
+
+        <div class="streak-pill-btn">
+          <span class="pill-fire">🔥</span>
+          <span>{{ activeStreak }} Day Streak</span>
+        </div>
+      </div>
+
+      <!-- Clean Grid of Squares -->
+      <div class="heatmap-grid-wrapper">
+        <div class="heatmap-squares-grid">
+          <div
+            *ngFor="let pt of consistencyHeatmap"
+            class="heatmap-tile"
+            [ngClass]="'level-' + pt.activityLevel"
+            [title]="pt.date + ': ' + pt.gamesPlayed + ' games played (' + pt.gamesWon + ' wins)'"
+          >
+            <span class="tile-date">{{ pt.date | date:'MMM d' }}</span>
+            <span class="tile-count">{{ pt.gamesPlayed }}</span>
+          </div>
+        </div>
+
+        <div class="heatmap-bottom-legend">
+          <span class="legend-lbl">Less</span>
+          <span class="legend-sq level-0"></span>
+          <span class="legend-sq level-1"></span>
+          <span class="legend-sq level-2"></span>
+          <span class="legend-sq level-3"></span>
+          <span class="legend-lbl">More (Max 3/day)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ==================== VIEW 2: GAME ARENA (PLAY PAGE) ==================== -->
+  <div class="play-arena-container" *ngIf="viewMode === 'PLAY'">
+    <!-- Top Nav Header -->
+    <div class="arena-top-nav">
+      <button class="btn-back" (click)="backToDashboard()">
+        <span>← Back to Dashboard</span>
+      </button>
+
+      <div class="arena-title">
+        <h2>🎯 5-Letter Word Guess Game</h2>
+      </div>
+
+      <div class="daily-badge">
+        <span class="badge-icon">📅</span>
+        <div class="badge-info">
+          <span class="badge-label">Daily Games Left</span>
+          <span class="badge-value">{{ remainingGamesToday }} / 3 Left Today</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Alert Banners -->
+    <div class="alert alert-error" *ngIf="errorMessage">
+      <span>⚠️ {{ errorMessage }}</span>
+    </div>
+
+    <div class="alert alert-warning llm-alert" *ngIf="llmAlertMessage">
+      <span>{{ llmAlertMessage }}</span>
+    </div>
+
+    <!-- Main 5x5 Grid & Keyboard Arena -->
+    <div class="game-arena">
+      <!-- 5x5 Guess Grid -->
+      <div class="grid-container">
+        <div class="grid-row" *ngFor="let row of boardGrid">
+          <div
+            class="tile"
+            *ngFor="let tile of row"
+            [ngClass]="[
+              tile.status,
+              tile.char ? 'filled' : ''
+            ]"
+          >
+            {{ tile.char }}
+          </div>
+        </div>
+      </div>
+
+      <!-- On-Screen Virtual Keyboard -->
+      <div class="keyboard-container">
+        <div class="keyboard-row" *ngFor="let row of keyboardRows">
+          <button
+            *ngFor="let key of row"
+            class="key-btn"
+            [ngClass]="[
+              key === 'ENTER' || key === '⌫' ? 'key-wide' : '',
+              letterKeyStatus[key] || ''
+            ]"
+            (click)="onKeyClick(key)"
+          >
+            {{ key }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Color Guide Legend -->
+    <div class="legend-card">
+      <span class="legend-title">Color Guide:</span>
+      <div class="legend-item">
+        <span class="tile-sample GREEN">A</span>
+        <span>Correct Letter & Position</span>
+      </div>
+      <div class="legend-item">
+        <span class="tile-sample ORANGE">B</span>
+        <span>Correct Letter, Wrong Position</span>
+      </div>
+      <div class="legend-item">
+        <span class="tile-sample GREY">C</span>
+        <span>Not in Word</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Congratulatory Win Modal -->
+  <div class="modal-overlay" *ngIf="showWinModal">
+    <div class="modal-card">
+      <div class="modal-icon">🎉</div>
+      <h3 class="modal-title text-success">Congratulations!</h3>
+      <p class="modal-body">
+        You guessed the correct word <strong class="word-highlight">{{ revealedTargetWord }}</strong> in {{ attempts.length }} attempt{{ attempts.length > 1 ? 's' : '' }}!
+      </p>
+      <button class="btn btn-primary w-full" (click)="closeModal('WIN')">Return to Dashboard</button>
+    </div>
+  </div>
+
+  <!-- Loss Modal -->
+  <div class="modal-overlay" *ngIf="showLossModal">
+    <div class="modal-card">
+      <div class="modal-icon">💔</div>
+      <h3 class="modal-title text-warning">Better Luck Next Time!</h3>
+      <p class="modal-body">
+        You used all 5 attempts. The secret word was <strong class="word-highlight">{{ revealedTargetWord }}</strong>.
+      </p>
+      <button class="btn btn-primary w-full" (click)="closeModal('LOSS')">Return to Dashboard</button>
+    </div>
+  </div>
+</div>
